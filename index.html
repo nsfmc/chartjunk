@@ -8,8 +8,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>chartjunk: a font for quickly making sparklines in your page</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="chartjunk is a font and small javascript for adding sparklines to your webpage">
+  <meta name="author" content="Marcos Ojeda">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -18,8 +18,10 @@
   <link rel="stylesheet" href="css/chartjunk.css">
   <style type="text/css" media="screen">
 
+    body { font-size:16px; padding-left: 100px; padding-bottom:200px; width:800px; }
+    h2 { margin-top: 3em; }
     .junkjunk{
-      font-family:chartjunk-web;
+      font-family:chartjunk-web; color:#444;
     }
 
   </style>
@@ -34,8 +36,25 @@
 
     </header>
     <div id="main" role="main">
-      <p>Stocks rose sharply in trading today... <span class="chartjunk">1,2,4,1,9,42,53,2,45,16,2,3,15,0</span>
-      <p>I did pretty well this week at the range: <span class="junkjunk">+++==-++-+++==-++++=+</span>
+      <h1>Chartjunk</h1>
+      <p>Chartjunk is a <a href="https://github.com/nsfmc/chartjunk/tree/master/css">webfont</a>, a small piece of javascript to <a href="#junkify">junkify</a> inline data-series, and an actual <a href="https://github.com/nsfmc/chartjunk/tree/master/chartjunk.ufo">ufo</a>/<a href="https://github.com/nsfmc/chartjunk/blob/master/chartjunk.otf?raw=true">otf</a> file you can extend or do whatever you'd like.
+      <p>If you're <a href="http://www.youtube.com/watch?v=pY8jaGs7xJ0">into it</a>, you could <a href="https://github.com/nsfmc/chartjunk/fork_select">fork this project</a> on <a href="https://github.com/nsfmc/chartjunk">github</a>
+      <p>You don't need to use this, i don't know your life, but if this is something you're into then <em>by all means.</em>
+      <div class="demo">
+        <h2>obligatory demo</h2>
+        <p>Stocks rose sharply in trading today... <span class="prechartjunk">1,2,4,1,9,42,53,2,45,16,2,3,15,0</span> becomes <span class="chartjunk">1,2,4,1,9,42,53,2,45,16,2,3,15,0</span> (the sparkline has a title attribute with the original data)
+        <p>I did pretty well this week at the range: <span class="prechartjunk">+++==-++-+++==-++++=+</span> becomes <span class="junkjunk">+++==-++-+++==-++++=+</span>
+      </div>
+      <div id="junkify">
+        <h2>the javascript</h2>
+        <p>The code that performs the transformations above is pretty straightforward, you can probably even implement it yourself in a smarter way. The code as it stands requires underscore, but you can probably rewrite it not even need that.</p>
+        <script src="https://gist.github.com/2038321.js?file=junkify.js"></script>
+      </div>
+      <div class="license">
+        <h2>license</h2>
+        <p>All this bizness is &copy; marcos.andres.ojeda, 2012</p>
+        <p>The code is licensed under the <a href="http://www.json.org/license.html">json license</a> while the font is licensed under an <a href="scripts.sil.org/OFL">ofl license</a>. Please have fun and do good things.
+      </div>
     </div>
     <footer>
 
@@ -50,9 +69,10 @@
     var sparks = document.getElementsByClassName( someClass );
     _(sparks).each(function(e,i){
       var range = 16;
-      var d = e.innerText.split(","),
-          max = _.max(d),
-          min = _.min(d),
+      var origContent = e.innerHTML;
+      e.title = "data: "+ origContent;
+      var d = origContent.split(","),
+          max = _.max(d), min = _.min(d),
           dataRange = max-min;
 
       // an array like ["0","1",...,"e","f,","g"]
@@ -71,24 +91,11 @@
       e.className = cns;
     }) 
   }
+  
   junkify("chartjunk");
 
   </script>
   <!-- end scripts-->
 
-
-  <script> // Change UA-XXXXX-X to be your site's ID
-    // window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    // Modernizr.load({
-    //   load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    // });
-  </script>
-
-
-  <!--[if lt IE 7 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
-  
 </body>
 </html>
