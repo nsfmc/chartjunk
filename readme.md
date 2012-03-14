@@ -1,5 +1,7 @@
-#backbone starter kit
+#chartjunk
 
-i usually find something like backbone and want to get started with it but i hate having to assemble my work environment. here's one put together from the html5 boilerplate and backbone/underscore.
+A while ago, I started working on a sparkline font at the Khan Academy. Instead of writing some obtuse canvas script that would be hard to maintain, why not use a font to represent the same thing? The text then, could be meaningful, and you'd have the advantage that the sparkline display would gracefully degrade.
 
-in addition, it also includes the docs for both underscore and backbone so if you're offline (i.e. "i'm on a boat") you can hack and look up some docs easily. enjoy!
+We tried it out and the project went another way, but the font remained. Please edit, hack, update, do whatever.
+
+In this project, i'm providing it both as a css base64 encoded font (for webpages), as a UFO file and also as an OTF. I don't have any current intent to support this at the moment, but sparklines are always interesting and having tools available for implementing them is always nice.

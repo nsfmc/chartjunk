@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
+  <title>chartjunk: a font for quickly making sparklines in your page</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -15,6 +15,11 @@
 
   <!-- CSS concatenated and minified via ant build script-->
   <link rel="stylesheet" href="css/style.css">
+  <style type="text/css" media="screen">
+  .junkjunk{
+    font-family:chartjunk;
+  }
+  </style>
   <!-- end CSS-->
 
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
@@ -27,7 +32,7 @@
 
     </header>
     <div id="main" role="main">
-
+      <p>Stocks rose sharply in trading today... <span class="chartjunk">1,2,4,1,9,42,53,2,45,16,2,3,15,0</span>
     </div>
     <footer>
 
@@ -45,6 +50,22 @@
 
   <!-- put your new backbone creation here -->
   <script defer src="js/script.js"></script>
+  <script>
+  _($(".chartjunk")).each(function(e,i){
+    var range = 16;
+    var d = $(e).text().split(",")
+    var max = _.max(d)
+    var min = _.min(d)
+    var dataRange = max-min;
+    var cj = _.range(17).map(function(e){return e.toString(17)})
+    var rescaled = _(d).map(function(e){
+      var idx = Math.ceil((e - min) * (range / dataRange) );
+      return cj[idx]
+    })
+    var graphText = rescaled.join(",")
+    $(e).text( graphText ).addClass("junkjunk")
+  })
+  </script>
   <!-- end scripts-->
 
 
