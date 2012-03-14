@@ -25,7 +25,6 @@
   </style>
   <!-- end CSS-->
 
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
@@ -36,37 +35,44 @@
     </header>
     <div id="main" role="main">
       <p>Stocks rose sharply in trading today... <span class="chartjunk">1,2,4,1,9,42,53,2,45,16,2,3,15,0</span>
+      <p>I did pretty well this week at the range: <span class="junkjunk">+++==-++-+++==-++++=+</span>
     </div>
     <footer>
 
     </footer>
   </div> <!--! end of #container -->
 
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
   <script src="js/libs/underscore-min.js"></script>
 
   <script>
-  _($(".chartjunk")).each(function(e,i){
-    var range = 16;
-    var d = $(e).text().split(","),
-        max = _.max(d),
-        min = _.min(d),
-        dataRange = max-min;
+  var junkify = function( someClass ){
+    // requires underscore.js
+    var sparks = document.getElementsByClassName( someClass );
+    _(sparks).each(function(e,i){
+      var range = 16;
+      var d = e.innerText.split(","),
+          max = _.max(d),
+          min = _.min(d),
+          dataRange = max-min;
 
-    // an array like ["0","1",...,"e","f,","g"]
-    var cj = _.range(17).map(function(e){return e.toString(17)})
+      // an array like ["0","1",...,"e","f,","g"]
+      var cj = _.range(17).map(function(e){return e.toString(17)})
 
-    var rescaled = _(d).map(function(e){
-      var idx = Math.ceil((e - min) * (range / dataRange) );
-      return cj[idx]
-    })
+      // remap data to start at "0" and end at "g"
+      var rescaled = _(d).map(function(e){
+        var idx = Math.ceil((e - min) * (range / dataRange) );
+        return cj[idx]
+      })
 
-    // reassemble the string and render as chartjunk
-    var graphText = rescaled.join("")
-    $(e).text( graphText ).addClass("junkjunk")
-  })
+      // reassemble the string and add chartjunk's junkjunk classname
+      var graphText = rescaled.join("")
+      e.innerHTML = graphText;
+      var cns = _.uniq( (e.className + " junkjunk").split(" ") ).join(" ")
+      e.className = cns;
+    }) 
+  }
+  junkify("chartjunk");
+
   </script>
   <!-- end scripts-->
 
