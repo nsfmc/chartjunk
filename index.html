@@ -15,10 +15,13 @@
 
   <!-- CSS concatenated and minified via ant build script-->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chartjunk.css">
   <style type="text/css" media="screen">
-  .junkjunk{
-    font-family:chartjunk;
-  }
+
+    .junkjunk{
+      font-family:chartjunk-web;
+    }
+
   </style>
   <!-- end CSS-->
 
@@ -43,26 +46,25 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
   <script src="js/libs/underscore-min.js"></script>
-  <script src="js/libs/backbone-min.js"></script>
 
-  <!-- scripts concatenated and minified via ant build script-->
-  <script defer src="js/plugins.js"></script>
-
-  <!-- put your new backbone creation here -->
-  <script defer src="js/script.js"></script>
   <script>
   _($(".chartjunk")).each(function(e,i){
     var range = 16;
-    var d = $(e).text().split(",")
-    var max = _.max(d)
-    var min = _.min(d)
-    var dataRange = max-min;
+    var d = $(e).text().split(","),
+        max = _.max(d),
+        min = _.min(d),
+        dataRange = max-min;
+
+    // an array like ["0","1",...,"e","f,","g"]
     var cj = _.range(17).map(function(e){return e.toString(17)})
+
     var rescaled = _(d).map(function(e){
       var idx = Math.ceil((e - min) * (range / dataRange) );
       return cj[idx]
     })
-    var graphText = rescaled.join(",")
+
+    // reassemble the string and render as chartjunk
+    var graphText = rescaled.join("")
     $(e).text( graphText ).addClass("junkjunk")
   })
   </script>
