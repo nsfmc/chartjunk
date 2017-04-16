@@ -1,4 +1,4 @@
-#chartjunk
+# chartjunk
 
 A while ago I made a sparkline font at the khan academy when i was working with [david hu](http://david-hu.com/) on creating more forgiving streak bars. Instead of writing some obtuse homebrew canvas script that would be hard to maintain i thought: why not use a font to represent the same thing? The text then, could be meaningful, and you'd have the advantage that the sparkline display would gracefully degrade.
 
